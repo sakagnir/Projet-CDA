@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="css/home/index.css">
+{% endblock %}
+
+{% block main %}
+	<main>
+	<div class="container">
+		<h2>Prenez rendez-vous en quelques clics</h2>
+		<div>
+			<img src="{{asset('images/calendar.jpg')}}" alt="calendrier">
+			<a href="">Inscrivez-vous</a>
+		</div>
+	</div>
+
+	</main>
+{% endblock %}

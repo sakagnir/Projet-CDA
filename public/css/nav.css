@@ -1,0 +1,32 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    width: stretch;
+    padding: 10px;
+    background-color: #1E6FBF;
+
+    .nav_link {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 5px;
+
+        .row {
+            display: flex;
+            a {
+                color: #ffffff;
+                text-decoration: none;
+                height: min-content;
+            }
+        }
+    }
+
+    .logo {
+        img {
+            width: 120px;
+        }
+    }
+}
+
