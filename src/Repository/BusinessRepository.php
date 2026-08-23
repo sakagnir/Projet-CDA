@@ -16,20 +16,21 @@ class BusinessRepository extends ServiceEntityRepository
         parent::__construct($registry, Business::class);
     }
 
-//    /**
-//     * @return Business[] Returns an array of Business objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('b.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Business[]
+     */
+    public function search(?string $query): array
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->orderBy('b.name', 'ASC');
+
+        if (null !== $query && '' !== trim($query)) {
+            $qb->andWhere('b.name LIKE :query OR b.address LIKE :query')
+                ->setParameter('query', '%' . $query . '%');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 
 //    public function findOneBySomeField($value): ?Business
 //    {

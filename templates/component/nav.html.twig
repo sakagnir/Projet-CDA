@@ -1,5 +1,5 @@
 {% block stylesheets %}
-	<link rel="stylesheet" href="css/nav.css">
+	<link rel="stylesheet" href="{{ asset('css/nav.css') }}">
 {% endblock %}
 
 <nav class="header">
@@ -9,14 +9,18 @@
 		</a>
 	</div>
 	<div class="nav_link">
-	<div class="row">
-	{% if app.user %}
-		<a href="{{ path('app_profile') }}">Profil</a>
-		<a href="{{ path('app_logout') }}">Déconnexion</a>
-	{% else %}
-		<a href="{{ path('app_login') }}">Connexion</a>
-		<a href="{{ path('app_register') }}">Inscription</a>
-	{% endif %}
-	</div>
+		<div class="row">
+			{% if app.user %}
+				{% if not app.user.business %}
+					<a href="{{ path('app_add_business') }}">Créer un commerce</a>
+				{% endif %}
+				<a href="{{ path('app_all_business') }}">Commerces</a>
+				<a href="{{ path('app_profile') }}">Profil</a>
+				<a href="{{ path('app_logout') }}">Déconnexion</a>
+			{% else %}
+				<a href="{{ path('app_login') }}">Connexion</a>
+				<a href="{{ path('app_register') }}">Inscription</a>
+			{% endif %}
+		</div>
 	</div>
 </nav>

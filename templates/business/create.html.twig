@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Créer un commerce
+{% endblock %}
+
+{% block main %}
+	<main>
+		<h2>Créer un commerce</h2>
+
+		{{ form_errors(businessForm) }}
+
+		{{ form_start(businessForm) }}
+		{{ form_row(businessForm.name) }}
+		{{ form_row(businessForm.address) }}
+		{{ form_row(businessForm.description) }}
+
+		<button type="submit" class="btn">Créer</button>
+		{{ form_end(businessForm) }}
+	</main>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ business.name }}
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/business/show.css') }}">
+{% endblock %}
+
+{% block main %}
+	<main>
+		<div class="container">
+			<h2>{{ business.name }}</h2>
+			<p class="business-address">{{ business.address }}</p>
+			<p>{{ business.description }}</p>
+
+			<h3>Créneaux disponibles</h3>
+
+			<form class="availability-search" method="get">
+				<label for="from">À partir du</label>
+				<input type="date" id="from" name="from" value="{{ from ? from|date('Y-m-d') : '' }}">
+				<button type="submit">Rechercher</button>
+			</form>
+
+			{% if app.user and business.manager and business.manager.id == app.user.id %}
+				<a href="{{ path('app_add_availability', {id: business.id}) }}">Ajouter un créneau</a>
+			{% endif %}
+
+			{% if availabilities is empty %}
+				<p>Aucun créneau disponible.</p>
+			{% else %}
+				<ul class="availability-list">
+					{% for availability in availabilities %}
+						<li>{{ availability.startDate|date('d/m/Y H:i') }} - {{ (availability.startDate.timestamp + 3600)|date('H:i') }}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</div>
+	</main>
+{% endblock %}
