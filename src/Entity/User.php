@@ -6,12 +6,15 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_ID', fields: ['id'])]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[UniqueEntity(fields: ['email'], message: 'Un compte existe déjà avec cet email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -35,15 +38,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Role $role = null;
 
+    #[Assert\NotBlank(message: 'Veuillez saisir votre nom')]
+    #[Assert\Length(max: 50, maxMessage: 'Le nom ne doit pas dépasser {{ limit }} caractères')]
     #[ORM\Column(length: 50)]
     private ?string $lastName = null;
 
+    #[Assert\NotBlank(message: 'Veuillez saisir votre prénom')]
+    #[Assert\Length(max: 50, maxMessage: 'Le prénom ne doit pas dépasser {{ limit }} caractères')]
     #[ORM\Column(length: 50)]
     private ?string $firstName = null;
 
-    #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: 'Veuillez saisir un email')]
+    #[Assert\Email(message: "L'email {{ value }} n'est pas valide")]
+    #[Assert\Length(max: 180, maxMessage: "L'email ne doit pas dépasser {{ limit }} caractères")]
+    #[ORM\Column(length: 180)]
     private ?string $email = null;
 
+    #[Assert\NotBlank(message: 'Veuillez saisir votre numéro de téléphone')]
+    #[Assert\Regex(pattern: '/^\d{10}$/', message: 'Le numéro doit contenir 10 chiffres')]
     #[ORM\Column(length: 10)]
     private ?string $phone_number = null;
 
@@ -56,21 +68,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Booking::class, mappedBy: 'client')]
     private Collection $bookings;
 
+    #[ORM\Column]
+    private bool $isVerified = false;
+
     public function __construct()
     {
         $this->bookings = new ArrayCollection();
     }
 
-    public function getId(): ?string
+    public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setId(string $id): static
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     /**
@@ -80,7 +88,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->id;
+        return (string) $this->email;
     }
 
     /**
@@ -240,6 +248,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $booking->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
