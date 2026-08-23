@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Availabilities;
+use App\Entity\Business;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,6 +15,21 @@ class AvailabilitiesRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Availabilities::class);
+    }
+
+    /**
+     * @return Availabilities[]
+     */
+    public function search(Business $business, ?\DateTimeInterface $from = null): array
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.business = :business')
+            ->andWhere('a.startDate >= :from')
+            ->setParameter('business', $business)
+            ->setParameter('from', $from ?? new \DateTime())
+            ->orderBy('a.startDate', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**
