@@ -9,13 +9,35 @@
 
 {% block main %}
 	<main>
-	<div class="container">
-		<h2>Prenez rendez-vous en quelques clics</h2>
-		<div>
-			<img src="{{asset('images/calendar.jpg')}}" alt="calendrier">
-			<a href="">Inscrivez-vous</a>
+		<div class="container">
+			{% if app.user %}
+				{% for flash_success in app.flashes('success') %}
+					<div class="alert alert-success" role="alert">{{ flash_success }}</div>
+				{% endfor %}
+
+				{% if not app.user.isVerified %}
+					<div class="alert alert-warning" role="alert">
+						Votre email n'est pas encore vérifié.
+						<form method="post" action="{{ path('app_verify_email_resend') }}">
+							<input type="hidden" name="_token" value="{{ csrf_token('resend_verification_email') }}">
+							<button type="submit" class="btn">Renvoyer l'email de vérification</button>
+						</form>
+					</div>
+				{% endif %}
+
+				<h2>Commencer vos recherche</h2>
+				<div>
+					<p>Rechercher un commerce</p>
+					<a href="{{ path('app_search') }}"></a>
+				</div>
+			{% else %}
+				<h2>Prenez rendez-vous en quelques clics</h2>
+				<div>
+					<img src="{{asset('images/calendar.jpg')}}" alt="calendrier">
+					<a href="{{ path('app_register') }}">Inscrivez-vous</a>
+				</div>
+			{% endif %}
 		</div>
-	</div>
 
 	</main>
 {% endblock %}
