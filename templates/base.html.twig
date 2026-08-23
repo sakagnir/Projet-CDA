@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}{% endblock %}</title>
-        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-        <link rel="stylesheet" href="css/base.css">
+        <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
+        <link rel="stylesheet" href="{{ asset('css/base.css') }}">
         {% block stylesheets %}
         {% endblock %}
 
