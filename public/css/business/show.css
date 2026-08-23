@@ -1,0 +1,22 @@
+main {
+    display: flex;
+    justify-content: center;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        max-width: 700px;
+        padding: 0 20px;
+
+        a {
+            color: #1E6FBF;
+            text-decoration: none;
+        }
+
+        .business-address {
+            color: #333333;
+        }
+    }
+}

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Business;
 use App\Entity\User;
 use App\Form\BusinessFormType;
+use App\Repository\BusinessRepository;
 use App\Repository\RoleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,9 +17,22 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class BusinessController extends AbstractController
 {
     #[Route(path: '/business', name: 'app_all_business')]
-    public function getAllBusiness()
+    public function getAllBusiness(Request $request, BusinessRepository $businessRepository): Response
     {
-        return null;
+        $query = $request->query->get('q');
+
+        return $this->render('business/list.html.twig', [
+            'businesses' => $businessRepository->search($query),
+            'query' => $query,
+        ]);
+    }
+
+    #[Route(path: '/business/{id}', name: 'app_show_business', requirements: ['id' => '\d+'])]
+    public function showBusiness(Business $business): Response
+    {
+        return $this->render('business/show.html.twig', [
+            'business' => $business,
+        ]);
     }
 
     #[Route(path: '/business/add', name: 'app_add_business')]

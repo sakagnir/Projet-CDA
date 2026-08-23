@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ business.name }}
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/business/show.css') }}">
+{% endblock %}
+
+{% block main %}
+	<main>
+		<div class="container">
+			<h2>{{ business.name }}</h2>
+			<p class="business-address">{{ business.address }}</p>
+			<p>{{ business.description }}</p>
+		</div>
+	</main>
+{% endblock %}
