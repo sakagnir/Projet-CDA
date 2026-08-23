@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block stylesheets %}
-	<link rel="stylesheet" href="css/home/index.css">
+	<link rel="stylesheet" href="{{ asset('css/home/index.css') }}">
 {% endblock %}
 
 {% block main %}
@@ -28,7 +28,7 @@
 				<h2>Commencer vos recherche</h2>
 				<div>
 					<p>Rechercher un commerce</p>
-					<a href="{{ path('app_search') }}"></a>
+					{# <a href="{{ path('app_search') }}"></a> #}
 				</div>
 			{% else %}
 				<h2>Prenez rendez-vous en quelques clics</h2>
