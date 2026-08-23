@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Business;
 use App\Entity\User;
 use App\Form\BusinessFormType;
+use App\Repository\AvailabilitiesRepository;
 use App\Repository\BusinessRepository;
 use App\Repository\RoleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,10 +29,17 @@ class BusinessController extends AbstractController
     }
 
     #[Route(path: '/business/{id}', name: 'app_show_business', requirements: ['id' => '\d+'])]
-    public function showBusiness(Business $business): Response
+    public function showBusiness(Business $business, Request $request, AvailabilitiesRepository $availabilitiesRepository): Response
     {
+        $from = null;
+        if ($request->query->get('from')) {
+            $from = \DateTime::createFromFormat('Y-m-d', $request->query->get('from')) ?: null;
+        }
+
         return $this->render('business/show.html.twig', [
             'business' => $business,
+            'availabilities' => $availabilitiesRepository->search($business, $from),
+            'from' => $from,
         ]);
     }
 

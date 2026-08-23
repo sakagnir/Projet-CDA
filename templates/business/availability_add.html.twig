@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Ajouter un créneau
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/business/show.css') }}">
+{% endblock %}
+
+{% block main %}
+	<main>
+		<div class="container">
+			<a href="{{ path('app_show_business', {id: business.id}) }}">← Retour à {{ business.name }}</a>
+
+			<h2>Ajouter un créneau</h2>
+			<p>Chaque créneau dure une heure, à partir de l'horaire choisi.</p>
+
+			{{ form_errors(availabilityForm) }}
+
+			{{ form_start(availabilityForm) }}
+			{{ form_row(availabilityForm.startDate) }}
+
+			<button type="submit" class="btn">Ajouter</button>
+			{{ form_end(availabilityForm) }}
+		</div>
+	</main>
+{% endblock %}
