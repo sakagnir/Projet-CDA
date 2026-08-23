@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Commerces
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/business/list.css') }}">
+{% endblock %}
+
+{% block main %}
+	<main>
+		<div class="container">
+			<form class="business-search" method="get" action="{{ path('app_all_business') }}">
+				<label for="q">Rechercher un commerce</label>
+				<input type="text" id="q" name="q" value="{{ query }}" placeholder="Nom ou adresse">
+				<button type="submit">Rechercher</button>
+			</form>
+
+			{% if businesses is empty %}
+				<p>Aucun commerce trouvé.</p>
+			{% else %}
+				<div class="business-grid">
+					{% for business in businesses %}
+						<a class="business-card" href="{{ path('app_show_business', {id: business.id}) }}">
+							<h3>{{ business.name }}</h3>
+							<p>{{ business.description }}</p>
+						</a>
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+	</main>
+{% endblock %}
