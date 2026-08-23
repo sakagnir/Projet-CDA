@@ -31,7 +31,7 @@ MYSQL_DATABASE=meeting
 ```
 APP_ENV=prod
 APP_SECRET=<secret-généré>
-DATABASE_URL="mysql://root:<mot-de-passe-fort>@database:3306/meeting?serverVersion=8.0&charset=utf8mb4"
+DATABASE_URL="mysql://root:sCwxID70KkbZKEXznsIa@database:3306/meeting?serverVersion=8.0&charset=utf8mb4"
 ```
 
 Générer un `APP_SECRET` :
