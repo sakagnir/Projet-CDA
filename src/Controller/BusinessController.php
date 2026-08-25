@@ -20,7 +20,8 @@ class BusinessController extends AbstractController
     #[Route(path: '/business', name: 'app_all_business')]
     public function getAllBusiness(Request $request, BusinessRepository $businessRepository): Response
     {
-        $query = $request->query->get('q');
+        $query = trim((string) $request->query->get('q', ''));
+        $query = '' !== $query ? $query : null;
 
         return $this->render('business/list.html.twig', [
             'businesses' => $businessRepository->search($query),
