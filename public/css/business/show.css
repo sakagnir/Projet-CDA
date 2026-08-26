@@ -50,6 +50,8 @@ main {
                 border: 1px solid #1E6FBF;
                 border-radius: 4px;
                 padding: 10px;
+                display: flex;
+                justify-content: space-between;
             }
         }
     }

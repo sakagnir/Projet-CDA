@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ business.name }}
+	{{ business.name }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -11,6 +11,15 @@
 {% block main %}
 	<main>
 		<div class="container">
+			{% set flash_success = app.flashes('success')|last %}
+			{% if flash_success %}
+				<div class="alert alert-success" role="alert">{{ flash_success }}</div>
+			{% endif %}
+			{% set flash_error = app.flashes('error')|last %}
+			{% if flash_error %}
+				<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+			{% endif %}
+
 			<h2>{{ business.name }}</h2>
 			<p class="business-address">{{ business.address }}</p>
 			<p>{{ business.description }}</p>
@@ -32,7 +41,15 @@
 			{% else %}
 				<ul class="availability-list">
 					{% for availability in availabilities %}
-						<li>{{ availability.startDate|date('d/m/Y H:i') }} - {{ (availability.startDate.timestamp + 3600)|date('H:i') }}</li>
+						<li>
+							<div>
+								{{ availability.startDate|date('d/m/Y H:i') }}
+								-
+								{{ (availability.startDate.timestamp + 3600)|date('H:i') }}
+							</div>
+							<a href="{{path('app_book_availability', {id: availability.id})}}">Réserver</a>
+						</li>
+
 					{% endfor %}
 				</ul>
 			{% endif %}
