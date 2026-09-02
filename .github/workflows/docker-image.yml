@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build and start containers
-      run: docker compose up -d --build
+      run: docker compose up -d --build --wait
       env:
         MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
 
