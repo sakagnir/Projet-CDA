@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Réserver un créneau
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/booking/create.css') }}">
+{% endblock %}
+
+{% block main %}
+	<main>
+		<div class="container">
+			<a href="{{ path('app_show_business', {id: availability.business.id}) }}">← Retour à {{ availability.business.name }}</a>
+
+			<h2>Réserver le créneau</h2>
+			<p class="slot-summary">
+				{{ availability.startDate|date('d/m/Y H:i') }}
+				-
+				{{ (availability.startDate.timestamp + 3600)|date('H:i') }}
+			</p>
+
+			{{ form_errors(bookingForm) }}
+
+			{{ form_start(bookingForm) }}
+			{{ form_row(bookingForm.purpose) }}
+
+			<button type="submit" class="btn">Réserver</button>
+			{{ form_end(bookingForm) }}
+		</div>
+	</main>
+{% endblock %}

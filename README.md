@@ -2,6 +2,25 @@
 
 Application Symfony conteneurisée (PHP + Apache, MySQL, phpMyAdmin).
 
+## Environnements
+
+Le projet distingue trois environnements, pilotés par `APP_ENV` et le mécanisme de fichiers `.env` de Symfony :
+
+| Environnement | `APP_ENV` | Où il tourne | Débogage |
+|---|---|---|---|
+| dev | `dev` | poste du développeur, via `docker compose` | activé (profiler, erreurs détaillées) |
+| test | `test` | CI (GitHub Actions) et exécution locale de phpunit | désactivé, base dédiée `meeting_test` |
+| prod | `prod` | serveur de déploiement | désactivé |
+
+Gestion des différences :
+
+- `.env` — valeurs par défaut communes, commité, **jamais de secret réel**.
+- `.env.local` — overrides pour le poste du développeur (non commité), avec les vrais identifiants de la base locale.
+- `.env.test` / `.env.test.local` — config de l'environnement de test (base `meeting_test`, secret dédié). `phpunit.dist.xml` force `APP_ENV=test`, donc ces fichiers sont chargés automatiquement pendant les tests.
+- `.env.prod` — valeurs par défaut de prod non sensibles, commité. Les vrais secrets de prod (`APP_SECRET`, `DATABASE_URL`...) vivent dans un `.env.prod.local` créé uniquement sur le serveur, jamais commité (voir section 2 ci-dessous).
+- `compose.override.yaml` — ajoute des réglages dev-only (mailer de test, port MySQL exposé) et se fusionne automatiquement avec `compose.yaml` en local. Pour simuler la prod en local, lancer `docker compose -f compose.yaml up -d --build` seul, sans l'override.
+- CI (`.github/workflows/docker-image.yml`) — à chaque push/PR sur `master` : build de l'image, démarrage des conteneurs, `composer install`, exécution de la suite phpunit (donc en environnement `test`) et `composer audit`.
+
 ## Prérequis serveur
 
 - Docker et Docker Compose installés
@@ -22,7 +41,7 @@ cd meeting
 Ne jamais committer ce fichier en production — créer un fichier propre au serveur :
 
 ```
-MYSQL_ROOT_PASSWORD=sCwxID70KkbZKEXznsIa
+MYSQL_ROOT_PASSWORD=!ChangeMe!
 MYSQL_DATABASE=meeting
 ```
 
@@ -31,7 +50,7 @@ MYSQL_DATABASE=meeting
 ```
 APP_ENV=prod
 APP_SECRET=<secret-généré>
-DATABASE_URL="mysql://root:sCwxID70KkbZKEXznsIa@database:3306/meeting?serverVersion=8.0&charset=utf8mb4"
+DATABASE_URL="mysql://root:!ChangeMe!@database:3306/meeting?serverVersion=8.0&charset=utf8mb4"
 ```
 
 Générer un `APP_SECRET` :

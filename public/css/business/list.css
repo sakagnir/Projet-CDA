@@ -30,6 +30,15 @@ main {
             color: #ffffff;
             cursor: pointer;
         }
+
+        a {
+            color: #1E6FBF;
+        }
+    }
+
+    .business-search-result {
+        color: #333333;
+        font-style: italic;
     }
 
     .business-grid {

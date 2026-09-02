@@ -15,10 +15,17 @@
 				<label for="q">Rechercher un commerce</label>
 				<input type="text" id="q" name="q" value="{{ query }}" placeholder="Nom ou adresse">
 				<button type="submit">Rechercher</button>
+				{% if query %}
+					<a href="{{ path('app_all_business') }}">Réinitialiser</a>
+				{% endif %}
 			</form>
 
+			{% if query %}
+				<p class="business-search-result">Résultats pour « {{ query }} »</p>
+			{% endif %}
+
 			{% if businesses is empty %}
-				<p>Aucun commerce trouvé.</p>
+				<p>Aucun commerce trouvé{{ query ? ' pour « ' ~ query ~ ' »' : '' }}.</p>
 			{% else %}
 				<div class="business-grid">
 					{% for business in businesses %}

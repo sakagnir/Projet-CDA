@@ -14,5 +14,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: Build and start containers
+      run: docker compose up -d --build --wait
+      env:
+        MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+
+    - run: docker compose exec -T php composer install
+    - run: docker compose exec -T php php bin/console doctrine:database:create --env=test --if-not-exists
+    - run: docker compose exec -T php php bin/console doctrine:migrations:migrate --env=test --no-interaction
+    - run: docker compose exec -T php php bin/phpunit
+    - run: docker compose exec -T php composer audit
