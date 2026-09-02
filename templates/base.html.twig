@@ -5,6 +5,7 @@
         <title>{% block title %}{% endblock %}</title>
         <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
         <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/breadcrumb.css') }}">
         {% block stylesheets %}
         {% endblock %}
 
@@ -13,6 +14,9 @@
     </head>
     <body>
     {% include 'component/nav.html.twig' %}
-        {% block main %}{% endblock %}
+        <div class="page-content">
+            {% block breadcrumb %}{% endblock %}
+            {% block main %}{% endblock %}
+        </div>
     </body>
 </html>

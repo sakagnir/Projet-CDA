@@ -1,0 +1,15 @@
+{% if items is defined and items|length > 0 %}
+	<nav class="breadcrumb" aria-label="Fil d'ariane">
+		<ol>
+			{% for item in items %}
+				<li>
+					{% if item.route is defined %}
+						<a href="{{ path(item.route, item.params|default({})) }}">{{ item.label }}</a>
+					{% else %}
+						<span aria-current="page">{{ item.label }}</span>
+					{% endif %}
+				</li>
+			{% endfor %}
+		</ol>
+	</nav>
+{% endif %}

@@ -4,6 +4,13 @@
     Créer un commerce
 {% endblock %}
 
+{% block breadcrumb %}
+	{% include 'component/breadcrumb.html.twig' with {items: [
+		{label: 'Accueil', route: 'app_home'},
+		{label: 'Créer un commerce'}
+	]} %}
+{% endblock %}
+
 {% block main %}
 	<main>
 		<h2>Créer un commerce</h2>

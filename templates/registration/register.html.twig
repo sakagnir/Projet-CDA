@@ -3,6 +3,13 @@
 {% block title %}Register
 {% endblock %}
 
+{% block breadcrumb %}
+	{% include 'component/breadcrumb.html.twig' with {items: [
+		{label: 'Accueil', route: 'app_home'},
+		{label: 'Inscription'}
+	]} %}
+{% endblock %}
+
 {% block main %}
 	<main>
 		{% for flash_error in app.flashes('verify_email_error') %}

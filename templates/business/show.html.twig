@@ -8,6 +8,14 @@
 	<link rel="stylesheet" href="{{ asset('css/business/show.css') }}">
 {% endblock %}
 
+{% block breadcrumb %}
+	{% include 'component/breadcrumb.html.twig' with {items: [
+		{label: 'Accueil', route: 'app_home'},
+		{label: 'Commerces', route: 'app_all_business'},
+		{label: business.name}
+	]} %}
+{% endblock %}
+
 {% block main %}
 	<main>
 		<div class="container">
