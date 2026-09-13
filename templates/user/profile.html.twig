@@ -4,6 +4,13 @@
     Profil
 {% endblock %}
 
+{% block breadcrumb %}
+	{% include 'component/breadcrumb.html.twig' with {items: [
+		{label: 'Accueil', route: 'app_home'},
+		{label: 'Profil'}
+	]} %}
+{% endblock %}
+
 {% block main %}
 	<main>
 		<h2>Profil</h2>
@@ -22,5 +29,16 @@
 
 		<button type="submit" class="btn">Enregistrer</button>
 		{{ form_end(profileForm) }}
+
+		{% for flash_error in app.flashes('error') %}
+			<div class="alert alert-danger">{{ flash_error }}</div>
+		{% endfor %}
+
+		<h3>Supprimer mon compte</h3>
+		<p>Cette action est irréversible.</p>
+		<form method="post" action="{{ path('app_delete_user') }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.');">
+			<input type="hidden" name="_token" value="{{ csrf_token('delete-user') }}">
+			<button type="submit" class="btn btn-danger">Supprimer mon compte</button>
+		</form>
 	</main>
 {% endblock %}

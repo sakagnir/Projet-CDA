@@ -1,8 +1,109 @@
-* {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+:root {
+    --color-primary: #1E6FBF;
+    --color-primary-hover: #175a99;
+    --color-secondary: #ffffff;
+    --color-text: #1a1a1a;
+    --color-text-muted: #5c6773;
+    --color-border: #d5dde5;
+    --font-heading: 'Poppins', Arial, sans-serif;
+    --font-body: 'Inter', Arial, sans-serif;
 }
 
-main {
-    margin-top: 120px;
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background-color: var(--color-secondary);
+    line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 0.5em;
+}
+
+a {
+    color: var(--color-primary);
+}
+
+a:hover {
+    color: var(--color-primary-hover);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-text);
+}
+
+input, textarea, select {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 8px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+button, .btn {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+button:hover, .btn:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.btn-danger {
+    background-color: #a3312a;
+}
+
+.btn-danger:hover {
+    background-color: #832722;
+}
+
+.alert {
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+}
+
+.alert-success {
+    background-color: #e8f2ec;
+    color: #1e6f4c;
+    border: 1px solid #bcdccb;
+}
+
+.alert-danger, .alert-warning {
+    background-color: #fbeceb;
+    color: #a3312a;
+    border: 1px solid #f0c4c1;
 }
