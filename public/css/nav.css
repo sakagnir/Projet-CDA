@@ -1,11 +1,14 @@
 .header {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    position: absolute;
+    flex-wrap: wrap;
+    gap: 10px;
+    position: sticky;
     top: 0;
-    width: stretch;
-    padding: 10px;
-    background-color: #1E6FBF;
+    z-index: 10;
+    padding: 10px 24px;
+    background-color: var(--color-primary);
 
     .nav_link {
         display: flex;
@@ -15,19 +18,85 @@
 
         .row {
             display: flex;
-            gap: 10px;
+            flex-wrap: wrap;
+            gap: 16px;
+
             a {
-                color: #ffffff;
+                color: var(--color-secondary);
                 text-decoration: none;
                 height: min-content;
+                font-weight: 500;
+            }
+
+            a:hover {
+                color: var(--color-secondary);
+                text-decoration: underline;
             }
         }
     }
 
-    .logo {
-        img {
-            width: 120px;
-        }
+    .logo img {
+        width: 120px;
+        display: block;
     }
 }
 
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-secondary);
+    border-radius: 1px;
+}
+
+.nav-toggle:hover {
+    background: transparent;
+}
+
+@media (max-width: 640px) {
+    .header {
+        padding: 10px 16px;
+    }
+
+    .header .logo img {
+        width: 90px;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .header .nav_link {
+        display: none;
+        order: 3;
+        width: 100%;
+    }
+
+    .header .nav_link.is-open {
+        display: flex;
+    }
+
+    .header .nav_link .row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        width: 100%;
+        padding-top: 12px;
+        margin-top: 4px;
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+        font-size: 0.9rem;
+    }
+}

@@ -3,6 +3,10 @@
 {% block title %}Register
 {% endblock %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/register.css') }}">
+{% endblock %}
+
 {% block breadcrumb %}
 	{% include 'component/breadcrumb.html.twig' with {items: [
 		{label: 'Accueil', route: 'app_home'},
@@ -12,25 +16,27 @@
 
 {% block main %}
 	<main>
-		{% for flash_error in app.flashes('verify_email_error') %}
-			<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-		{% endfor %}
+		<div class="container">
+			{% for flash_error in app.flashes('verify_email_error') %}
+				<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+			{% endfor %}
 
-		<h1>Register</h1>
+			<h1>Register</h1>
 
-		{{ form_errors(registrationForm) }}
+			{{ form_errors(registrationForm) }}
 
-		{{ form_start(registrationForm) }}
-		{{ form_row(registrationForm.lastName) }}
-		{{ form_row(registrationForm.firstName) }}
-		{{ form_row(registrationForm.email) }}
-		{{ form_row(registrationForm.phoneNumber) }}
-		{{ form_row(registrationForm.plainPassword, {
-            label: 'Mot de passe'
-        }) }}
-		{{ form_row(registrationForm.agreeTerms) }}
+			{{ form_start(registrationForm) }}
+			{{ form_row(registrationForm.lastName) }}
+			{{ form_row(registrationForm.firstName) }}
+			{{ form_row(registrationForm.email) }}
+			{{ form_row(registrationForm.phoneNumber) }}
+			{{ form_row(registrationForm.plainPassword, {
+	            label: 'Mot de passe'
+	        }) }}
+			{{ form_row(registrationForm.agreeTerms) }}
 
-		<button type="submit" class="btn">Register</button>
-		{{ form_end(registrationForm) }}
+			<button type="submit" class="btn">Register</button>
+			{{ form_end(registrationForm) }}
+		</div>
 	</main>
 {% endblock %}

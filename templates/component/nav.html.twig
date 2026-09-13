@@ -8,7 +8,12 @@
 			<img src="{{ asset('images/logo_gestion_rendezvous.svg') }}" alt="Logo"/>
 		</a>
 	</div>
-	<div class="nav_link">
+	<button type="button" class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-links">
+		<span></span>
+		<span></span>
+		<span></span>
+	</button>
+	<div class="nav_link" id="nav-links">
 		<div class="row">
 			{% if app.user %}
 				{% if not app.user.business %}
@@ -24,3 +29,7 @@
 		</div>
 	</div>
 </nav>
+
+{% block javascripts %}
+	<script src="{{ asset('js/nav.js') }}" defer></script>
+{% endblock %}
