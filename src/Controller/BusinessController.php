@@ -74,7 +74,7 @@ class BusinessController extends AbstractController
 
             $this->addFlash('success', 'Votre commerce a été créé.');
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_all_business');
         }
 
         return $this->render('business/create.html.twig', [

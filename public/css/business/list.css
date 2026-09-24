@@ -11,16 +11,30 @@ main {
         padding: 0 20px 15px 20px;
     }
 
+    .business-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
     .business-search {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         gap: 10px;
+        flex: 1;
 
         input {
             flex: 1;
             min-width: 180px;
         }
+    }
+
+    .business-toolbar .btn {
+        white-space: nowrap;
+        text-decoration: none;
     }
 
     .business-search-result {

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conditions générales d'utilisation
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/legal/terms.css') }}">
+{% endblock %}
+
+{% block breadcrumb %}
+	{% include 'component/breadcrumb.html.twig' with {items: [
+		{label: 'Accueil', route: 'app_home'},
+		{label: 'Conditions générales d\'utilisation'}
+	]} %}
+{% endblock %}
+
+{% block main %}
+	<main>
+		<div class="container">
+			<h1>Conditions générales d'utilisation</h1>
+
+			<h2>1. Objet</h2>
+			<p>Kréno est une plateforme permettant aux utilisateurs de prendre rendez-vous auprès de commerces partenaires. En créant un compte, vous acceptez les présentes conditions.</p>
+
+			<h2>2. Compte utilisateur</h2>
+			<p>Vous êtes responsable de l'exactitude des informations fournies lors de l'inscription et de la confidentialité de vos identifiants de connexion.</p>
+
+			<h2>3. Réservations</h2>
+			<p>Toute réservation effectuée via la plateforme vous engage auprès du commerce concerné. Les conditions d'annulation sont définies par chaque commerce.</p>
+
+			<h2>4. Données personnelles</h2>
+			<p>Les données collectées (nom, prénom, email, téléphone) sont utilisées uniquement pour la gestion de votre compte et de vos réservations. Vous pouvez à tout moment consulter, modifier ou supprimer vos informations depuis votre profil.</p>
+
+			<h2>5. Suppression du compte</h2>
+			<p>Vous pouvez supprimer votre compte à tout moment depuis votre profil, sous réserve de ne pas avoir de réservation en cours.</p>
+
+			<h2>6. Contact</h2>
+			<p>Pour toute question relative à ces conditions, vous pouvez nous contacter via la page de contact du site.</p>
+		</div>
+	</main>
+{% endblock %}

@@ -18,6 +18,7 @@
 {% block main %}
 	<main>
 		<div class="container">
+		<div class="business-toolbar">
 			<form class="business-search" method="get" action="{{ path('app_all_business') }}">
 				<label for="q">Rechercher un commerce</label>
 				<input type="text" id="q" name="q" value="{{ query }}" placeholder="Nom ou adresse">
@@ -26,6 +27,8 @@
 					<a href="{{ path('app_all_business') }}">Réinitialiser</a>
 				{% endif %}
 			</form>
+			<a href="{{ path('app_add_business') }}" class="btn">Ajouter un commerce</a>
+		</div>
 
 			{% if query %}
 				<p class="business-search-result">Résultats pour « {{ query }} »</p>
